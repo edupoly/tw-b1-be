@@ -14,6 +14,32 @@ app.get("/xyz", function (req, res) {
   res.send("Ok pada");
 });
 
+app.get("/products/:id",(req,res)=>{
+  var id = req.params.id;
+  var data = fs.readFileSync("products.txt");
+  var details = JSON.parse(data.toString());
+  console.log(details)
+  var selectedProduct = details.products.find(p=>{
+    console.log(p.id)
+    console.log(id)
+    return p.id==id
+  })
+  res.send(selectedProduct);
+})
+app.get("/products/getRange/:x/:y",(req,res)=>{
+  var x = +req.params.x;
+  var y = +req.params.y;
+  var data = fs.readFileSync("products.txt");
+  var details = JSON.parse(data.toString());
+  console.log(details)
+  var selectedProducts = details.products.filter((pr)=>{
+    if(pr.id>x && pr.id<=y){
+      return true
+    }
+  })
+  res.send(selectedProducts);
+})
+
 app.get("/add/:x/:y", function (req, res) {
   console.log(req.params);
   res.send(+req.params.x + +req.params.y);
