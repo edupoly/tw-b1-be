@@ -1,0 +1,10 @@
+html 
+    body 
+        h1 Issues 
+        ul(style={display:"flex","flex-wrap":"wrap",gap:"20px"})
+            each issue in issues
+                li(style={width:'100px',display:"flex","flex-direction":"column"}) 
+                    div(style= ( issue.status==='Pending'?{"background-color":"red"}:{"background-color":"orange"} ))
+                        b #{issue.issueType}
+                        p #{issue.remarks}
+                        i #{issue.status}
