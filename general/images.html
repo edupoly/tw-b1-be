@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>All Uploaded IMAGES</h1>
+    <ul id="d1">
+
+    </ul>
+    <script>
+
+        fetch('/user/allusers')
+            .then(res => res.json())
+            .then(data => {
+                data.forEach((user) => {
+                    var nli = document.createElement("li")
+                    var nh3 = document.createElement("h3")
+                    nh3.innerText = user.name;
+                    nli.appendChild(nh3)
+                    var uimg = document.createElement("img")
+                    uimg.src = user.profilePic;
+                    uimg.style.width = "100px"
+                    nli.appendChild(uimg)
+                    document.getElementById("d1").appendChild(nli)
+                })
+                document.getElementById("d1").innerHTML = nli
+            })
+            .catch(err => console.error('Error fetching images:', err));
+    </script>
+</body>
+
+</html>
+<!-- 
+
+"name": "gauri",
+        "email": "gauri@gmail.com",
+        "password": "",
+        "role": "admin",
+        "profilePic": "uploads/1777357265514-101871257_ChatGPT Image Aug 1, 2025, 11_15_55 AM.png",
+-->
