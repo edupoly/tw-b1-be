@@ -34,7 +34,6 @@
             document.getElementById("msgs").appendChild(nli)
         })
         function sendMessage() {
-
             socket.emit("userMessage", { msg: document.getElementById("ms1").value })
         }
     </script>

@@ -25,6 +25,6 @@ io.on("connection", (socket) => {
 
 app.use(express.static(__dirname + "/general"));
 
-server.listen(3500, () => {
+server.listen(process.env.PORT || 3500, () => {
   console.log("Server uriking on 3500");
 });
