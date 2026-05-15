@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="socket.io.min.js"></script>
+</head>
+
+<body>
+    <h1><span id="uname"></span>, Welcome to Thoughtworks Group Chat</h1>
+    <h1>Live : <span id="d1"></span></h1>
+    <input type="text" id="ms1">
+    <button onclick="sendMessage()">Send message</button>
+    <ul id="msgs"></ul>
+    <script>
+        var username = prompt("Enter the username")
+        document.getElementById("uname").innerHTML = "HI!!, " + username.toUpperCase();
+        var socket = io("", {
+            query: {
+                username
+            }
+        });
+        socket.on("liveCountEvent", (msg) => {
+            console.log(msg);
+            document.getElementById("d1").innerHTML = msg.uc;
+        })
+        socket.on("groupMessage", ({ ms: { msg }, username }) => {
+            console.log(msg);
+            console.log(username);
+            var nli = document.createElement("li")
+            nli.innerHTML = `<b>${username} :: ${msg}</b>`;
+            document.getElementById("msgs").appendChild(nli)
+        })
+        function sendMessage() {
+
+            socket.emit("userMessage", { msg: document.getElementById("ms1").value })
+        }
+    </script>
+</body>
+
+</html>
